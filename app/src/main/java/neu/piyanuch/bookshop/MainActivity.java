@@ -18,6 +18,8 @@ import com.squareup.okhttp.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.jar.Attributes;
+
 public class MainActivity extends AppCompatActivity {
 
     //Explicit
@@ -49,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         private String urlString;
         private boolean statusABoolean = true;
         private String truePasswordString;
+        private String nameLoginString;
 
 
 
@@ -92,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
                     if (userString.equals(jsonObject.getString("User"))) {
                         statusABoolean = false;
                         truePasswordString = jsonObject.getString("Password");
+                        nameLoginString = jsonObject.getString("Name");
 
                     }   //  if
 
@@ -105,14 +109,20 @@ public class MainActivity extends AppCompatActivity {
                             "ไม่มี" + userString + "ในฐานข้อมูลของเรา");
                 } else if (passwordString.equals(truePasswordString)) {
                     //Password True
+
+                    Intent intent = new Intent(context, BookActivity.class);
+                    intent.putExtra("Name", nameLoginString);
+                    startActivity(intent);
+
                     Toast.makeText(context, "ยินดีต้อนรับ" ,Toast.LENGTH_SHORT).show();
+                    finish();
 
                 } else {
                     //Password False
                     MyAlert myAlert = new MyAlert();
                     myAlert.MyDialog(context, "Password False",
                             "Please Try Again Password False");
-                }fgfd
+                }
 
 
             } catch (Exception e) {
